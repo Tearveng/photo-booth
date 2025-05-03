@@ -172,7 +172,7 @@ export default function Camera(props: ICamera) {
     const getMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: { height: { ideal: 80 } },
           audio: false,
         });
         if (videoRef.current) {
@@ -204,11 +204,11 @@ export default function Camera(props: ICamera) {
       ) : (
         <Stack gap={2} direction={{ md: "row" }}>
           <Stack>
-            <Stack sx={{ position: "relative", maxHeight: 480 }}>
+            <Stack sx={{ position: "relative" }}>
               <video
                 style={{
                   transform: "scaleX(-1)",
-                  height: 480,
+                  height: 240,
                   objectFit: "cover",
                   filter,
                 }}
