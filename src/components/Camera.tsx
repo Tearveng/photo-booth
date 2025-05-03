@@ -77,7 +77,7 @@ export default function Camera(props: ICamera) {
         context.drawImage(
           video,
           -video.videoWidth,
-          video.videoHeight / 4,
+          0,
           video.videoWidth,
           video.videoHeight
         );
@@ -208,7 +208,7 @@ export default function Camera(props: ICamera) {
               <video
                 style={{
                   transform: "scaleX(-1)",
-                  height: "240px",
+                  height: "480px",
                   objectFit: "cover",
                   filter,
                 }}
