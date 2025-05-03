@@ -319,7 +319,7 @@ export default function KonvaCanvas(props: IKonCanvas) {
           variant="outlined"
           sx={{ fontSize: 12 }}
         >
-          {process.env.NEXT_PUBLIC_API}
+          {storeImg.length}
         </Button>
         <Button
           sx={{ fontSize: 12 }}
