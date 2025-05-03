@@ -172,7 +172,7 @@ export default function Camera(props: ICamera) {
     const getMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { height: { ideal: 240 } },
+          video: { height: { ideal: 80 } },
           audio: false,
         });
         if (videoRef.current) {
