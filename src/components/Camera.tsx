@@ -204,7 +204,7 @@ export default function Camera(props: ICamera) {
       ) : (
         <Stack gap={2} direction={{ md: "row" }}>
           <Stack>
-            <Stack sx={{ position: "relative" }}>
+            <Stack sx={{ position: "relative", maxHeight: 480 }}>
               <video
                 style={{ transform: "scaleX(-1)", filter }}
                 ref={videoRef}
