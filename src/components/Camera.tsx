@@ -206,7 +206,12 @@ export default function Camera(props: ICamera) {
           <Stack>
             <Stack sx={{ position: "relative", maxHeight: 480 }}>
               <video
-                style={{ transform: "scaleX(-1)", maxHeight: 480, filter }}
+                style={{
+                  transform: "scaleX(-1)",
+                  height: 480,
+                  objectFit: "cover",
+                  filter,
+                }}
                 ref={videoRef}
                 autoPlay
                 playsInline
