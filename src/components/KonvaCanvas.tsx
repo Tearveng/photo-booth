@@ -319,7 +319,7 @@ export default function KonvaCanvas(props: IKonCanvas) {
           variant="outlined"
           sx={{ fontSize: 12 }}
         >
-          Download Photo stripe
+          {process.env.NEXT_PUBLIC_API}
         </Button>
         <Button
           sx={{ fontSize: 12 }}
