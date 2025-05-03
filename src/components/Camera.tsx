@@ -69,7 +69,7 @@ export default function Camera(props: ICamera) {
       if (context) {
         // Set canvas size to video size
         canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.height = video.videoHeight / 2;
 
         // Mirror effect if needed
         context.scale(-1, 1);
@@ -77,7 +77,7 @@ export default function Camera(props: ICamera) {
         context.drawImage(
           video,
           -video.videoWidth,
-          0,
+          video.videoHeight / 4,
           video.videoWidth,
           video.videoHeight
         );
@@ -172,11 +172,7 @@ export default function Camera(props: ICamera) {
     const getMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            height: { ideal: 480 },
-            aspectRatio: 16 / 9,
-            facingMode: "user",
-          },
+          video: true,
           audio: false,
         });
         if (videoRef.current) {
@@ -213,7 +209,6 @@ export default function Camera(props: ICamera) {
                 style={{
                   transform: "scaleX(-1)",
                   height: "240px",
-                  objectFit: "cover",
                   filter,
                 }}
                 ref={videoRef}
