@@ -206,9 +206,11 @@ export default function Camera(props: ICamera) {
           <Stack>
             <Stack sx={{ position: "relative" }}>
               <video
-                style={{ transform: "scaleX(-1)", filter }}
+                // style={{ transform: "scaleX(-1)", filter }}
                 ref={videoRef}
                 autoPlay
+                playsInline
+                muted
               />
               <canvas ref={canvasRef} style={{ display: "none" }} />
               <Stack
