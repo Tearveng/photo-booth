@@ -208,6 +208,9 @@ export default function Camera(props: ICamera) {
             <Stack sx={{ position: "relative" }}>
               <video
                 style={{
+                  transformOrigin: "center center",
+                  width: "100vh" /* swapped width/height */,
+                  height: "100vw",
                   transform: "scaleX(-1)",
                   objectFit: "cover",
                   filter,
