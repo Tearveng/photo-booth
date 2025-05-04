@@ -265,8 +265,8 @@ export default function KonvaCanvas(props: IKonCanvas) {
                   image={img.img}
                   x={xPosition} // Offset each image horizontally
                   y={yPosition}
-                  width={img.width - 40}
-                  height={img.height}
+                  width={img.width / (isLayout4 ? 4.5 : 2)}
+                  height={img.height / (isLayout4 ? 4.5 : 2)}
                 />
               );
             })}

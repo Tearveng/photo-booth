@@ -74,13 +74,7 @@ export default function Camera(props: ICamera) {
         // Mirror effect if needed
         context.scale(-1, 1);
         context.filter = filter;
-        context.drawImage(
-          video,
-          -video.videoWidth,
-          0,
-          video.videoWidth,
-          video.videoHeight
-        );
+        context.drawImage(video, -video.videoWidth, 0, 650, 480);
 
         // Get the image data URL
         const imageDataURL = canvas.toDataURL("image/png");
@@ -208,8 +202,6 @@ export default function Camera(props: ICamera) {
               <video
                 style={{
                   transform: "scaleX(-1)",
-                  aspectRatio: "16/9",
-                  // height: 480,
                   objectFit: "cover",
                   filter,
                 }}
