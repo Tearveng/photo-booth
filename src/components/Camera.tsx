@@ -67,20 +67,56 @@ export default function Camera(props: ICamera) {
     if (video && canvas) {
       const context = canvas.getContext("2d");
       if (context) {
-        // Set canvas size to video size
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        // // Set canvas size to video size
+        // canvas.width = video.videoWidth;
+        // canvas.height = video.videoHeight;
 
-        // Mirror effect if needed
-        context.scale(-1, 1);
-        context.filter = filter;
-        context.drawImage(
-          video,
-          -video.videoWidth,
-          0,
-          video.videoWidth,
-          video.videoHeight
-        );
+        // // Mirror effect if needed
+        // context.scale(-1, 1);
+        // context.filter = filter;
+        // context.drawImage(
+        //   video,
+        //   -video.videoWidth,
+        //   0,
+        //   video.videoWidth,
+        //   video.videoHeight
+        // );
+        const aspectRatio = video.clientWidth / video.clientHeight;
+        const rawRatio = video.videoWidth / video.videoHeight;
+
+        if (aspectRatio < rawRatio) {
+          // Video is wider than display: crop width
+          const newWidth = video.videoHeight * aspectRatio;
+          const offsetX = (video.videoWidth - newWidth) / 2;
+
+          context.drawImage(
+            video,
+            offsetX,
+            0,
+            newWidth,
+            video.videoHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        } else {
+          // Video is taller than display: crop height
+          const newHeight = video.videoWidth / aspectRatio;
+          const offsetY = (video.videoHeight - newHeight) / 2;
+
+          context.drawImage(
+            video,
+            0,
+            offsetY,
+            video.videoWidth,
+            newHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        }
 
         // Get the image data URL
         const imageDataURL = canvas.toDataURL("image/png");
