@@ -80,7 +80,7 @@ export default function Camera(props: ICamera) {
           -video.videoWidth,
           -180,
           video.videoWidth,
-          video.videoHeight - 180
+          video.videoHeight
         );
 
         // Get the image data URL
