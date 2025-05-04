@@ -175,6 +175,7 @@ export default function Camera(props: ICamera) {
           video: {
             width: { ideal: 1280 },
             height: { ideal: 760 },
+            aspectRatio: { ideal: 16 / 9 },
             facingMode: "user",
           },
           audio: false,
