@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import ColorModeIconDropdown from ".././theme/ColorModeIconDropdown";
 
@@ -35,6 +36,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }: { theme: any }) => ({
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -71,14 +73,6 @@ export default function AppAppBar() {
                 sx={{ minWidth: 0 }}
               >
                 FAQ
-              </Button>
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                sx={{ minWidth: 0 }}
-              >
-                Blog
               </Button>
             </Box>
           </Box>
@@ -124,9 +118,8 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Home</MenuItem>
+                <MenuItem onClick={() => router.push("/")}>Home</MenuItem>
                 <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 {/* <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

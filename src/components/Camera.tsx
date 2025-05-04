@@ -40,6 +40,10 @@ const filterData = [
   },
 ];
 
+const isMobileDevice = () => {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
+
 interface ICamera {
   seconds: number;
 }
@@ -55,6 +59,7 @@ export default function Camera(props: ICamera) {
   const [filter, setFilter] = useState<string>("none");
   const [secondsLeft, setSecondsLeft] = useState<number>(props.seconds);
   const [isCapturing, setIsCapturing] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { layout } = useAppSelector((state) => state.applicationSlice);
 
   const onChangeFilter = (value: string) => {
@@ -69,17 +74,17 @@ export default function Camera(props: ICamera) {
       const rect = video.getBoundingClientRect(); // vis
       if (context) {
         // Set canvas size to video size
-        canvas.width = video.videoWidth + 170;
-        canvas.height = video.videoHeight - 150;
+        canvas.width = video.videoWidth + (isMobile ? 170 : 0);
+        canvas.height = video.videoHeight - (isMobile ? 155 : 0);
 
         // Mirror effect if needed
         context.scale(-1, 1);
         context.filter = filter;
         context.drawImage(
           video,
-          -video.videoWidth - 170,
-          -170,
-          video.videoWidth + 170,
+          -video.videoWidth - (isMobile ? 170 : 0),
+          isMobile ? -170 : 0,
+          video.videoWidth + (isMobile ? 170 : 0),
           video.videoHeight
         );
 
@@ -201,6 +206,14 @@ export default function Camera(props: ICamera) {
   useEffect(() => {
     setSecondsLeft(props.seconds);
   }, [props.seconds]);
+
+  useEffect(() => {
+    if (isMobileDevice()) {
+      setIsMobile(true);
+    } else {
+      console.log("User is on desktop");
+    }
+  }, []);
 
   return (
     <Stack>
