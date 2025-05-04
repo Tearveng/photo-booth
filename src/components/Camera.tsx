@@ -172,7 +172,11 @@ export default function Camera(props: ICamera) {
     const getMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: "user",
+          },
           audio: false,
         });
         if (videoRef.current) {
@@ -208,7 +212,7 @@ export default function Camera(props: ICamera) {
               <video
                 style={{
                   transform: "scaleX(-1)",
-                  height: 240,
+                  height: 480,
                   objectFit: "cover",
                   filter,
                 }}
