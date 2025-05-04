@@ -70,7 +70,7 @@ export default function Camera(props: ICamera) {
       if (context) {
         // Set canvas size to video size
         canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.height = video.videoHeight - 180;
 
         // Mirror effect if needed
         context.scale(-1, 1);
@@ -80,7 +80,7 @@ export default function Camera(props: ICamera) {
           -video.videoWidth,
           -180,
           video.videoWidth,
-          video.videoHeight
+          video.videoHeight - 180
         );
 
         // Get the image data URL
