@@ -173,8 +173,8 @@ export default function Camera(props: ICamera) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            width: { ideal: 640 },
-            height: { ideal: 480 },
+            width: { ideal: 1280 },
+            height: { ideal: 760 },
             facingMode: "user",
           },
           audio: false,
