@@ -78,7 +78,7 @@ export default function Camera(props: ICamera) {
         context.drawImage(
           video,
           -video.videoWidth,
-          180,
+          -180,
           video.videoWidth,
           video.videoHeight
         );
@@ -197,6 +197,10 @@ export default function Camera(props: ICamera) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    setSecondsLeft(props.seconds);
+  }, [props.seconds]);
 
   return (
     <Stack>
