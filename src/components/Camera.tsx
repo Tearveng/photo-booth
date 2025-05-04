@@ -69,17 +69,17 @@ export default function Camera(props: ICamera) {
       const rect = video.getBoundingClientRect(); // vis
       if (context) {
         // Set canvas size to video size
-        canvas.width = video.videoWidth + 180;
-        canvas.height = video.videoHeight - 180;
+        canvas.width = video.videoWidth + 170;
+        canvas.height = video.videoHeight - 170;
 
         // Mirror effect if needed
         context.scale(-1, 1);
         context.filter = filter;
         context.drawImage(
           video,
-          -video.videoWidth - 180,
-          -180,
-          video.videoWidth + 180,
+          -video.videoWidth - 170,
+          -170,
+          video.videoWidth + 170,
           video.videoHeight
         );
 
