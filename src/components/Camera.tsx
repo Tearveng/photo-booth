@@ -68,18 +68,18 @@ export default function Camera(props: ICamera) {
       const context = canvas.getContext("2d");
       if (context) {
         // Set canvas size to video size
-        canvas.width = video.clientWidth;
-        canvas.height = video.clientHeight;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
         // Mirror effect if needed
         context.scale(-1, 1);
         context.filter = filter;
         context.drawImage(
           video,
-          -video.clientWidth,
+          -video.videoWidth,
           0,
-          video.clientWidth,
-          video.clientHeight
+          video.videoWidth,
+          video.videoHeight
         );
 
         // Get the image data URL
