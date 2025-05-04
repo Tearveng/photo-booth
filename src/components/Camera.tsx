@@ -68,18 +68,18 @@ export default function Camera(props: ICamera) {
       const context = canvas.getContext("2d");
       if (context) {
         // Set canvas size to video size
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = video.clientWidth;
+        canvas.height = video.clientHeight;
 
         // Mirror effect if needed
         context.scale(-1, 1);
         context.filter = filter;
         context.drawImage(
           video,
-          -video.videoWidth,
+          -video.clientWidth,
           0,
-          video.videoWidth,
-          video.videoHeight
+          video.clientWidth,
+          video.clientHeight
         );
 
         // Get the image data URL
@@ -203,55 +203,60 @@ export default function Camera(props: ICamera) {
         <p>Error: {error}</p>
       ) : (
         <Stack gap={2} direction={{ md: "row" }}>
-          <Stack sx={{ position: "relative" }}>
-            <video
-              style={{
-                transform: "scaleX(-1)",
-                objectFit: "cover",
-                filter,
-              }}
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-            />
-            <canvas ref={canvasRef} style={{ display: "none" }} />
-            <Stack
-              sx={{
-                position: "absolute",
-                top: "46%",
-                left: "46%",
-                display: isCapturing ? "flex" : "none",
-              }}
-            >
-              <Typography
-                variant="h1"
+          <Stack>
+            <Stack sx={{ position: "relative" }}>
+              <video
+                style={{
+                  transform: "scaleX(-1)",
+                  height: 240,
+                  objectFit: "cover",
+                  filter,
+                }}
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+              />
+              <canvas ref={canvasRef} style={{ display: "none" }} />
+              <Stack
                 sx={{
-                  textAlign: "center",
-                  color: "text.secondary",
+                  position: "absolute",
+                  top: "46%",
+                  left: "46%",
+                  display: isCapturing ? "flex" : "none",
                 }}
               >
-                {secondsLeft}
-              </Typography>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    textAlign: "center",
+                    color: "text.secondary",
+                  }}
+                >
+                  {secondsLeft}
+                </Typography>
+              </Stack>
             </Stack>
-          </Stack>
-          <Stack py={2} gap={1}>
-            <Button
-              variant="outlined"
-              onClick={startAutoCapture}
-              disabled={isCapturing}
-            >
-              {isCapturing
-                ? "Capturing..."
-                : `Start capture (${layout.layoutChoosing} photos)`}
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={onContinue}
-              disabled={isCapturing || photos.length !== layout.layoutChoosing}
-            >
-              Continue
-            </Button>
+            <Stack py={2} gap={1}>
+              <Button
+                variant="outlined"
+                onClick={startAutoCapture}
+                disabled={isCapturing}
+              >
+                {isCapturing
+                  ? "Capturing..."
+                  : `Start capture (${layout.layoutChoosing} photos)`}
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={onContinue}
+                disabled={
+                  isCapturing || photos.length !== layout.layoutChoosing
+                }
+              >
+                Continue
+              </Button>
+            </Stack>
           </Stack>
 
           {photos.length > 0 && (
