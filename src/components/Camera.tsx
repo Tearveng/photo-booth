@@ -67,56 +67,20 @@ export default function Camera(props: ICamera) {
     if (video && canvas) {
       const context = canvas.getContext("2d");
       if (context) {
-        // // Set canvas size to video size
-        // canvas.width = video.videoWidth;
-        // canvas.height = video.videoHeight;
+        // Set canvas size to video size
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
-        // // Mirror effect if needed
-        // context.scale(-1, 1);
-        // context.filter = filter;
-        // context.drawImage(
-        //   video,
-        //   -video.videoWidth,
-        //   0,
-        //   video.videoWidth,
-        //   video.videoHeight
-        // );
-        const aspectRatio = video.clientWidth / video.clientHeight;
-        const rawRatio = video.videoWidth / video.videoHeight;
-
-        if (aspectRatio < rawRatio) {
-          // Video is wider than display: crop width
-          const newWidth = video.videoHeight * aspectRatio;
-          const offsetX = (video.videoWidth - newWidth) / 2;
-
-          context.drawImage(
-            video,
-            offsetX,
-            0,
-            newWidth,
-            video.videoHeight,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
-        } else {
-          // Video is taller than display: crop height
-          const newHeight = video.videoWidth / aspectRatio;
-          const offsetY = (video.videoHeight - newHeight) / 2;
-
-          context.drawImage(
-            video,
-            0,
-            offsetY,
-            video.videoWidth,
-            newHeight,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
-        }
+        // Mirror effect if needed
+        context.scale(-1, 1);
+        context.filter = filter;
+        context.drawImage(
+          video,
+          -video.videoWidth,
+          0,
+          video.videoWidth,
+          video.videoHeight
+        );
 
         // Get the image data URL
         const imageDataURL = canvas.toDataURL("image/png");
@@ -239,61 +203,55 @@ export default function Camera(props: ICamera) {
         <p>Error: {error}</p>
       ) : (
         <Stack gap={2} direction={{ md: "row" }}>
-          <Stack>
-            <Stack sx={{ position: "relative" }}>
-              <video
-                style={{
-                  transform: "scaleX(-1)",
-                  width: "100%",
-                  height: 240,
-                  objectFit: "cover",
-                  filter,
-                }}
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-              />
-              <canvas ref={canvasRef} style={{ display: "none" }} />
-              <Stack
+          <Stack sx={{ position: "relative" }}>
+            <video
+              style={{
+                transform: "scaleX(-1)",
+                objectFit: "cover",
+                filter,
+              }}
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+            />
+            <canvas ref={canvasRef} style={{ display: "none" }} />
+            <Stack
+              sx={{
+                position: "absolute",
+                top: "46%",
+                left: "46%",
+                display: isCapturing ? "flex" : "none",
+              }}
+            >
+              <Typography
+                variant="h1"
                 sx={{
-                  position: "absolute",
-                  top: "46%",
-                  left: "46%",
-                  display: isCapturing ? "flex" : "none",
+                  textAlign: "center",
+                  color: "text.secondary",
                 }}
               >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    textAlign: "center",
-                    color: "text.secondary",
-                  }}
-                >
-                  {secondsLeft}
-                </Typography>
-              </Stack>
+                {secondsLeft}
+              </Typography>
             </Stack>
-            <Stack py={2} gap={1}>
-              <Button
-                variant="outlined"
-                onClick={startAutoCapture}
-                disabled={isCapturing}
-              >
-                {isCapturing
-                  ? "Capturing..."
-                  : `Start capture (${layout.layoutChoosing} photos)`}
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={onContinue}
-                disabled={
-                  isCapturing || photos.length !== layout.layoutChoosing
-                }
-              >
-                Continue
-              </Button>
-            </Stack>
+          </Stack>
+          <Stack py={2} gap={1}>
+            <Button
+              variant="outlined"
+              onClick={startAutoCapture}
+              disabled={isCapturing}
+            >
+              {isCapturing
+                ? "Capturing..."
+                : `Start capture (${layout.layoutChoosing} photos)`}
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={onContinue}
+              disabled={isCapturing || photos.length !== layout.layoutChoosing}
+            >
+              Continue
+            </Button>
           </Stack>
 
           {photos.length > 0 && (
