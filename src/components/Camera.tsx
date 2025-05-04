@@ -79,7 +79,7 @@ export default function Camera(props: ICamera) {
           video,
           -video.videoWidth,
           0,
-          rect.width * 2,
+          rect.width * 3,
           rect.height
         );
 
