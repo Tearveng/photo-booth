@@ -209,7 +209,7 @@ export default function Camera(props: ICamera) {
                 style={{
                   transform: "scaleX(-1)",
                   aspectRatio: "16/9",
-                  height: 480,
+                  // height: 480,
                   objectFit: "cover",
                   filter,
                 }}
