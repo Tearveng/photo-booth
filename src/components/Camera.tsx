@@ -77,7 +77,7 @@ export default function Camera(props: ICamera) {
         context.filter = filter;
         context.drawImage(
           video,
-          -video.videoWidth,
+          -video.videoWidth + 180,
           -180,
           video.videoWidth + 180,
           video.videoHeight
