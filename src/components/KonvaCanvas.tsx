@@ -240,7 +240,7 @@ export default function KonvaCanvas(props: IKonCanvas) {
               const photoWidth = stage.width * 0.8; // 80% of stage width
               const aspectRatio = img.height / img.width;
               const photoHeight = photoWidth * aspectRatio;
-              let yPosition = 20 + index * ((photoHeight - 100) / 2 + 170);
+              let yPosition = 20 + index * ((photoHeight - 80) / 2 + 170);
               let xPosition = (stage.width - photoWidth) / 2 - 15;
               if (!isLayout4) {
                 if (index === 0) {
