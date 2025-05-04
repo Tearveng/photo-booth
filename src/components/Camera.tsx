@@ -78,7 +78,7 @@ export default function Camera(props: ICamera) {
         context.drawImage(
           video,
           -video.videoWidth,
-          -150,
+          -180,
           video.videoWidth,
           video.videoHeight
         );
