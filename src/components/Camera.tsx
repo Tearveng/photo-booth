@@ -203,8 +203,6 @@ export default function Camera(props: ICamera) {
               <video
                 style={{
                   transform: "scaleX(-1)",
-                  width: 650,
-                  height: 480,
                   objectFit: "cover",
                   filter,
                 }}
