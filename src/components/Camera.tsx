@@ -69,8 +69,8 @@ export default function Camera(props: ICamera) {
       const rect = video.getBoundingClientRect(); // vis
       if (context) {
         // Set canvas size to video size
-        canvas.width = rect.width * 3;
-        canvas.height = rect.height;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
         // Mirror effect if needed
         context.scale(-1, 1);
@@ -79,8 +79,8 @@ export default function Camera(props: ICamera) {
           video,
           -video.videoWidth,
           0,
-          rect.width * 3,
-          rect.height
+          video.videoWidth,
+          video.videoHeight
         );
 
         // Get the image data URL
