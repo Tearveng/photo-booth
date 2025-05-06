@@ -3,6 +3,7 @@
 import CameraIcon from "@mui/icons-material/Camera";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Menu, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -36,10 +37,21 @@ const StyledToolbar = styled(Toolbar)(({ theme }: { theme: any }) => ({
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openDonate = Boolean(anchorEl);
+
   const router = useRouter();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -59,7 +71,7 @@ export default function AppAppBar() {
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
             <Link href={`/`}>
-              <CameraIcon color="primary" />
+              <CameraIcon color="primary" sx={{ mt: 0.5 }} />
             </Link>
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -85,10 +97,41 @@ export default function AppAppBar() {
           >
             {/* <Button color="primary" variant="text" size="small">
               Sign in
-            </Button>
-            <Button color="primary" variant="contained" size="small">
-              Sign up
             </Button> */}
+            <Button
+              color="primary"
+              size="small"
+              id="donate-menu"
+              aria-controls={openDonate ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={openDonate ? "true" : undefined}
+              onClick={handleClick}
+            >
+              Donate
+            </Button>
+            <Menu
+              id="donate-menu"
+              open={openDonate}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+            >
+              <MenuItem>
+                <Link href="https://pay.ababank.com/n2LR4DbbjGkAt3Co9">
+                  <Typography
+                    sx={{
+                      overflowWrap: "break-word",
+                      whiteSpace: "normal",
+                      width: 150,
+                    }}
+                  >
+                    https://pay.ababank.com/n2LR4DbbjGkAt3Co9
+                  </Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <img src="/aba.jpg" style={{ maxWidth: 150 }} />
+              </MenuItem>
+            </Menu>
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
@@ -120,6 +163,12 @@ export default function AppAppBar() {
 
                 <MenuItem onClick={() => router.push("/")}>Home</MenuItem>
                 <MenuItem>FAQ</MenuItem>
+                <MenuItem
+                  id="donate-menu"
+                  onClick={(e) => handleClick(e as any)}
+                >
+                  Donate
+                </MenuItem>
                 <Divider sx={{ my: 3 }} />
                 {/* <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

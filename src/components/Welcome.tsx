@@ -48,6 +48,7 @@ export default function Welcome() {
     <Box
       id="hero"
       sx={(theme) => ({
+        height: "91vh",
         width: "100%",
         backgroundRepeat: "no-repeat",
 

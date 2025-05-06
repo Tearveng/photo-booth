@@ -6,13 +6,14 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        py: 2,
+        py: 1,
         textAlign: "center",
         borderTop: "1px solid #e0e0e0",
         mt: 4,
         color: "text.secondary",
       }}
     >
+      <Typography variant="body2">Version 1.0.0</Typography>
       <Typography variant="body2">
         Made by{" "}
         <Link

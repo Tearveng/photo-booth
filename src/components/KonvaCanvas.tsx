@@ -4,7 +4,14 @@ import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { Image as ImageRender, Layer, Rect, Stage, Text } from "react-konva";
+import {
+  Group,
+  Image as ImageRender,
+  Layer,
+  Rect,
+  Stage,
+  Text,
+} from "react-konva";
 import { v4 as uuidv4 } from "uuid";
 import { useTransform } from "./useTransform";
 interface IKonCanvas {
@@ -178,7 +185,7 @@ export default function KonvaCanvas(props: IKonCanvas) {
   useEffect(() => {
     if (photos.length > 0) {
       const countPhoto = photos.length;
-      let newHeight = countPhoto * (countPhoto === 1 ? 330 : 290);
+      let newHeight = countPhoto * (countPhoto === 1 ? 330 : 280);
       if (countPhoto === 2) {
         newHeight = newHeight + 30;
       } else if (countPhoto > 4) {
@@ -235,12 +242,13 @@ export default function KonvaCanvas(props: IKonCanvas) {
           {/* frame image */}
           {storeImg.length > 0 &&
             storeImg.map((img, index) => {
+              const borderSize = 1;
               const isLayout4 = storeImg.length > 4;
               const isGreaterThan2 = isLayout4 && index > 2;
               const photoWidth = stage.width * 0.8; // 80% of stage width
               const aspectRatio = img.height / img.width;
               const photoHeight = photoWidth * aspectRatio;
-              let yPosition = 20 + index * (photoHeight / 2 + 170);
+              let yPosition = 20 + index * (photoHeight / 2 + 140);
               let xPosition = (stage.width - photoWidth) / 2 - 15;
               if (!isLayout4) {
                 if (index === 0) {
@@ -253,21 +261,36 @@ export default function KonvaCanvas(props: IKonCanvas) {
                 }
                 if (isGreaterThan2) {
                   yPosition = yPosition - 358;
-                  xPosition = xPosition + stage.width / 2.1;
+                  xPosition = xPosition + stage.width / 2.2;
                 }
               }
 
+              const imgWidth = img.width / (isLayout4 ? 4.2 : 2);
+              const imgHeight = img.height / (isLayout4 ? 4.5 : 2);
+
               return (
-                <ImageRender
-                  draggable={false}
-                  listening={false}
-                  key={index}
-                  image={img.img}
-                  x={xPosition} // Offset each image horizontally
-                  y={yPosition}
-                  width={img.width / (isLayout4 ? 4.5 : 2)}
-                  height={img.height / (isLayout4 ? 4.5 : 2)}
-                />
+                <Group>
+                  <Rect
+                    x={xPosition - borderSize}
+                    y={yPosition - borderSize}
+                    width={imgWidth + borderSize * 2}
+                    height={imgHeight + borderSize * 2}
+                    fill="transparent"
+                    stroke="#9999" // border color
+                    strokeWidth={1} // border thickness
+                    cornerRadius={4} // optional
+                  />
+                  <ImageRender
+                    draggable={false}
+                    listening={false}
+                    key={index}
+                    image={img.img}
+                    x={xPosition} // Offset each image horizontally
+                    y={yPosition}
+                    width={imgWidth}
+                    height={imgHeight}
+                  />
+                </Group>
               );
             })}
           <Text

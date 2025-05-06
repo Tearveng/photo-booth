@@ -64,6 +64,16 @@ export default function LayoutChoosing() {
   return (
     <form id="layout-submit" onSubmit={onSubmit}>
       <Stack alignItems="center" justifyContent="center">
+        <Button
+          type="submit"
+          form="layout-submit"
+          variant="contained"
+          color="primary"
+          size="small"
+          sx={{ maxWidth: "fit-content" }}
+        >
+          Continue
+        </Button>
         <Grid container spacing={2}>
           <Grid size={{ sm: 6, md: 12 }}>
             <Box
@@ -120,16 +130,6 @@ export default function LayoutChoosing() {
             </Box>
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          form="layout-submit"
-          variant="contained"
-          color="primary"
-          size="small"
-          sx={{ maxWidth: "fit-content" }}
-        >
-          Continue
-        </Button>
       </Stack>
     </form>
   );
