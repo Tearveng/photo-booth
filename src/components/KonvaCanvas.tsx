@@ -269,7 +269,7 @@ export default function KonvaCanvas(props: IKonCanvas) {
               const imgHeight = img.height / (isLayout4 ? 4.5 : 2);
 
               return (
-                <Group>
+                <Group key={index}>
                   <Rect
                     x={xPosition - borderSize}
                     y={yPosition - borderSize}
@@ -283,7 +283,6 @@ export default function KonvaCanvas(props: IKonCanvas) {
                   <ImageRender
                     draggable={false}
                     listening={false}
-                    key={index}
                     image={img.img}
                     x={xPosition} // Offset each image horizontally
                     y={yPosition}
