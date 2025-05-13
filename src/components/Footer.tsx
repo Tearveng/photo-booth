@@ -13,7 +13,7 @@ export default function Footer() {
         color: "text.secondary",
       }}
     >
-      <Typography variant="body2">Version 1.0.0</Typography>
+      <Typography variant="body2">Version 1.0.1</Typography>
       <Typography variant="body2">
         Made by{" "}
         <Link
