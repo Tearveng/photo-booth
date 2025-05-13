@@ -1,6 +1,7 @@
 import { useAppSelector } from "@/redux/store";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Button, Stack } from "@mui/material";
+import { ContainerConfig } from "konva/lib/Container";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
@@ -17,7 +18,22 @@ import { useTransform } from "./useTransform";
 interface IKonCanvas {
   stageColor: string;
   stickerUrl: string | null;
+  backgroundImg: HTMLImageElement | null;
   setStickerUrl: Dispatch<SetStateAction<string | null>>;
+  stageShape:
+    | {
+        tShape: ContainerConfig;
+      }
+    | undefined;
+  setBaseImage: Dispatch<
+    SetStateAction<
+      {
+        img: HTMLImageElement;
+        width: number;
+        height: number;
+      }[]
+    >
+  >;
 }
 
 const isIos = () => {
@@ -202,12 +218,17 @@ export default function KonvaCanvas(props: IKonCanvas) {
     if (photos.length > 0) {
       photos.forEach((p) => {
         const img = new Image();
-        img.onload = () => {};
         img.src = p;
-        setStoreImg((prev) => [
-          ...prev,
-          { img, width: img.width, height: img.height },
-        ]);
+        img.onload = () => {
+          setStoreImg((prev) => [
+            ...prev,
+            { img, width: img.width, height: img.height },
+          ]);
+          props.setBaseImage((prev) => [
+            ...prev,
+            { img, width: img.width, height: img.height },
+          ]);
+        };
       });
     }
   }, [photos]);
@@ -235,7 +256,9 @@ export default function KonvaCanvas(props: IKonCanvas) {
             y={0}
             width={stage.width}
             height={stage.height}
-            fill={props.stageColor}
+            fill={(props.backgroundImg ? null : props.stageColor) as any}
+            fillPatternImage={props.backgroundImg as any}
+            fillPatternRepeat="repeat"
             listening={false} // so it doesn't block interactions
           />
 
@@ -267,10 +290,16 @@ export default function KonvaCanvas(props: IKonCanvas) {
 
               const imgWidth = img.width / (isLayout4 ? 4.2 : 2);
               const imgHeight = img.height / (isLayout4 ? 4.5 : 2);
-
               return (
-                <Group key={index}>
-                  <Rect
+                <Group
+                  key={index}
+                  x={xPosition} // Offset each image horizontally
+                  y={yPosition}
+                  width={imgWidth}
+                  height={imgHeight}
+                  {...props.stageShape?.tShape}
+                >
+                  {/* <Rect
                     x={xPosition - borderSize}
                     y={yPosition - borderSize}
                     width={imgWidth + borderSize * 2}
@@ -278,16 +307,15 @@ export default function KonvaCanvas(props: IKonCanvas) {
                     fill="transparent"
                     stroke="#9999" // border color
                     strokeWidth={1} // border thickness
-                    cornerRadius={4} // optional
-                  />
+                    cornerRadius={40} // optional
+                  /> */}
+
                   <ImageRender
+                    width={imgWidth}
+                    height={imgHeight}
                     draggable={false}
                     listening={false}
                     image={img.img}
-                    x={xPosition} // Offset each image horizontally
-                    y={yPosition}
-                    width={imgWidth}
-                    height={imgHeight}
                   />
                 </Group>
               );

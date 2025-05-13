@@ -5,19 +5,28 @@
 //   ssr: false,
 // });
 
-import { useAppSelector } from "@/redux/store";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useState } from "react";
 import KonvaCanvas from "./KonvaCanvas";
+import { useBackgroundChoosing } from "./useBackgroundChoosing";
 import { useColorChoosing } from "./useColorChoosing";
+import { useShapeChoosing } from "./useShapeChoosing";
 import { useStickerChoosing } from "./useStickerChoosing";
 
 export default function BoothEdit() {
-  const { photos } = useAppSelector((state) => state.applicationSlice);
-  const { colorsChoosing, choosing } = useColorChoosing();
+  const [storeImg, setStoreImg] = useState<
+    {
+      img: HTMLImageElement;
+      width: number;
+      height: number;
+    }[]
+  >([]);
+  const { colorsChoosing, choosing, setChoosing } = useColorChoosing();
   const { stickerChoosing, stickerUrl, setStickerUrl } = useStickerChoosing();
-  const finalCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { bgImageChoosing, backgroundImg, setBackgroundImg } =
+    useBackgroundChoosing();
+  const { shapeChoosing, shape } = useShapeChoosing();
   const router = useRouter();
 
   const onChangeStart = () => {
@@ -148,8 +157,11 @@ export default function BoothEdit() {
           <Stack alignItems="center" flexGrow={1}>
             <Stack maxWidth={365}>
               <KonvaCanvas
+                setBaseImage={setStoreImg}
                 stageColor={choosing}
+                stageShape={shape}
                 stickerUrl={stickerUrl}
+                backgroundImg={backgroundImg}
                 setStickerUrl={setStickerUrl}
               />
             </Stack>
@@ -159,10 +171,26 @@ export default function BoothEdit() {
             {/* frame color photo */}
             <Stack gap={1}>
               <Typography>Choosing color:</Typography>
-              {colorsChoosing()}
+              {colorsChoosing(setBackgroundImg)}
             </Stack>
 
-            {/* sticker choosing  */}
+            {/* background image */}
+            <Stack gap={1}>
+              <Typography>Choosing background image:</Typography>
+              {bgImageChoosing(setChoosing)}
+            </Stack>
+
+            {/* shapes choosing */}
+            <Stack gap={1}>
+              <Typography>Choosing shape:</Typography>
+              {storeImg.length > 0 &&
+                shapeChoosing({
+                  imgWidth: storeImg[0].width / (storeImg.length > 4 ? 5 : 2),
+                  imgHeight: storeImg[0].height / (storeImg.length > 4 ? 5 : 2),
+                })}
+            </Stack>
+
+            {/* stickers choosing  */}
             <Stack gap={1}>
               <Typography>Choosing sticker:</Typography>
               {stickerChoosing()}

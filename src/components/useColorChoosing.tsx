@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const codeColor = [
   "#152a25",
@@ -17,13 +17,6 @@ const codeColor = [
   "#f5d4cd",
   "#701e66",
   "#edd351",
-];
-
-const colorData = [
-  {
-    id: "",
-    code: "",
-  },
 ];
 
 export const useColorChoosing = () => {
@@ -52,7 +45,9 @@ export const useColorChoosing = () => {
     );
   };
 
-  const colorsChoosing = () => {
+  const colorsChoosing = (
+    setBgImage: Dispatch<SetStateAction<HTMLImageElement | null>>
+  ) => {
     const generateColor = codeColor.map((c, index) => ({
       id: index + 1,
       code: c,
@@ -61,7 +56,13 @@ export const useColorChoosing = () => {
     return (
       <Stack direction="row" gap={1} flexWrap="wrap" maxWidth={350}>
         {generateColor.map((g) => (
-          <Stack key={g.id} onClick={() => handleOnChangeColor(g.code)}>
+          <Stack
+            key={g.id}
+            onClick={() => {
+              setBgImage(null);
+              handleOnChangeColor(g.code);
+            }}
+          >
             {colorJSX(g.code)}
           </Stack>
         ))}
@@ -69,5 +70,5 @@ export const useColorChoosing = () => {
     );
   };
 
-  return { colorsChoosing, choosing };
+  return { colorsChoosing, choosing, setChoosing };
 };
