@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://photo-booth-tawny.vercel.app', // Replace with your domain
+  siteUrl: 'https://photobooth.byveng.store', // Replace with your domain
   generateRobotsTxt: true,
   changefreq: 'weekly',
   priority: 0.7,

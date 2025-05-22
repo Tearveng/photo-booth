@@ -21,14 +21,21 @@ export const metadata: Metadata = {
     default: "photobooth by vengtear",
     template: "%s | photobooth by vengtear",
   },
+  keywords: [
+    "Photo booth",
+    "Booth",
+    "Booth Online",
+    "Edit photo booth",
+    "Photo booth online",
+  ],
   description:
     "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
-  metadataBase: new URL("https://www.photo-booth-tawny.vercel.app"),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_API}`),
   openGraph: {
     title: "photobooth by vengtear",
     description:
       "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
-    url: "https://www.photo-booth-tawny.vercel.app",
+    url: `${process.env.NEXT_PUBLIC_API}`,
     siteName: "photobooth by vengtear",
     images: [
       {
