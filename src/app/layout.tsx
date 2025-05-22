@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     images: ["/frame_image.png"],
   },
   alternates: {
-    canonical: "/",
+    canonical: `${process.env.NEXT_PUBLIC_API}`,
   },
 };
 
