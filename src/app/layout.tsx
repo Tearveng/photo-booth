@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   ],
   description:
     "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_API}`),
+  metadataBase: new URL(`thtps://photobooth.byveng.store`),
   openGraph: {
     title: "photobooth by vengtear",
     description:
       "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
-    url: `abc`,
+    url: `https://photobooth.byveng.store`,
     siteName: "photobooth by vengtear",
     images: [
       {
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     images: ["/frame_image.png"],
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_API}`,
+    canonical: `https://photobooth.byveng.store`,
   },
 };
 
