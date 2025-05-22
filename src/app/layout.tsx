@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_API}`),
   openGraph: {
-    title: "%s | photobooth by vengtear",
+    title: "photobooth by vengtear",
     description:
       "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
     url: `${process.env.NEXT_PUBLIC_API}`,
