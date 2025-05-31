@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   description:
     "BCapture unforgettable moments with our premium photo booth experiences—perfect for weddings, parties, corporate events, and more. Sleek design, instant prints, digital sharing, and custom branding included. Make your next event truly memorable!",
-  metadataBase: new URL(`thtps://photobooth.byveng.store`),
+  metadataBase: new URL(`https://photobooth.byveng.store`),
   openGraph: {
     title: "Photo Booth Online",
     description:
