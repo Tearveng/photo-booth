@@ -21,10 +21,6 @@ export const metadata: Metadata = {
     default: "photobooth by vengtear",
     template: "%s | photobooth by vengtear",
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
   keywords: [
     "Photo booth",
     "Booth",
